@@ -28,12 +28,14 @@
 
 * Given an unsorted dynamic array arr and two numbers x and y, find the minimum distance between x and y in arr. The array might also contain duplicates. You may assume that both x and y are different and present in arr.
 Input: arr[] = {3, 5, 4, 2, 6, 5, 6, 6, 5, 4, 8, 3}, x = 3, y = 6
-Output: Minimum distance between 3 and 6 is 4.
-* WAP to find out the second smallest and second largest element stored in a dynamic array.
-* WAP to arrange the elements of a dynamic array such that all even numbers are followed by all odd numbers.
-* Write a program to replace every element in the dynamic array with the next greatest element present in the same array.
-* WAP to replace every dynamic array element by multiplication of previous and next of an n element.
+Output: Minimum distance between 3 and 6 is 4. ✅
+* WAP to find out the second smallest and second largest element stored in a dynamic array.✅
+* WAP to arrange the elements of a dynamic array such that all even numbers are followed by all odd numbers.✅
+* Write a program to replace every element in the dynamic array with the next greatest element present in the same array.✅
+* WAP to replace every dynamic array element by multiplication of previous and next of an n element.✅
 
 
 # O/P
 ![](/Lab01/O-P.png)
+
+![](/Lab01/O-PHW.png)
