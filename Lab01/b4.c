@@ -45,7 +45,7 @@ int main(int argc, char const *argv[])
 		}
 	}
     
-    printf("The smallest= %d\nThe Largest= %d\n",min, max);
+    // printf("The smallest= %d\nThe Largest= %d\n",min, max);
     printf("The second smallest= %d\nThe second Largest= %d\n",secMin, secMax);
     free(a);
     remove(argv[0]);

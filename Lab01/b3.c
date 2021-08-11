@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
             if(j!=n && minDist > count)
                 minDist=count;
 
-            printf("#x->y %d\n",count);
+            // printf("#x->y %d\n",count);
         }
         else if(a[i]==y){
             //find the distance from this till find the y
@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
             if(j!=n && minDist > count)
                 minDist=count;
 
-            printf("#y->x %d\n",count);
+            // printf("#y->x %d\n",count);
         }
         
     }

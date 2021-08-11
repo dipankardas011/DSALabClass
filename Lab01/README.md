@@ -38,4 +38,5 @@ Output: Minimum distance between 3 and 6 is 4. ✅
 # O/P
 ![](/Lab01/O-P.png)
 
-![](/Lab01/O-PHW.png)
+![](/Lab01/01.png)
+![](/Lab01/02.png)
