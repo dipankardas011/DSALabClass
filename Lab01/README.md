@@ -34,9 +34,19 @@ Output: Minimum distance between 3 and 6 is 4. ✅
 * Write a program to replace every element in the dynamic array with the next greatest element present in the same array.✅
 * WAP to replace every dynamic array element by multiplication of previous and next of an n element.✅
 
+# H/W
+* WAP to sort rows of a dynamic matrix having m rows and n columns in ascending and columns in descending order.✅
+* WAP to find out the kth smallest and kth largest element stored in a dynamic array of n integers, where k< n.✅
+* WAP to find the largest number and counts the occurrence of the largest number in a dynamic array of n integers using a single loop.✅
+* You are given an array of 0s and 1s in random order. Segregate 0s on left side and 1s on right side of the array. Traverse array only once.✅
+* WAP to swap all the elements in the 1st column with all the corresponding elements in the last column, and 2nd column with the second last column and 3rd with 3rd last etc. of a 2-D dynamic array.  Display the matrix.✅
+* WAP to arrange the elements of a dynamic array such that all even numbers are followed by all odd numbers using a single loop.✅
 
 # O/P
 ![](/Lab01/O-P.png)
 
 ![](/Lab01/01.png)
 ![](/Lab01/02.png)
+
+![](/Lab01/03.png)
+![](/Lab01/04.png)
