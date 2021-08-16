@@ -29,8 +29,6 @@ int main(int argc, char const *argv[])
     for(int i=0;i<n;i++)
         scanf("%d",a+i);
 
-    int l=0,
-        r=n-1;
 
     sort(a,n);
 
