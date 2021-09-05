@@ -50,16 +50,15 @@ done!!1
 * WAP to reverse the first m elements of a linked list of n nodes.✅
 * WAP to remove duplicates from a linked list of n nodes.✅
 * Given a linked list which is sorted, WAP to insert an element into the linked list in sorted way.✅
-* WAP to find number of occurrences of all elements in a linked list.
-* WAP to modify the linked list such that all even numbers appear before all the odd numbers in the modified linked list.
-* WAP to check whether a singly linked list is a palindrome or not.
-* A linked list is said to contain a cycle if any node is visited more than once while traversing the list. WAP to detect a cycle in a linked list.
-* WAP to reverse only even position nodes in a singly linked list.
-* WAP to swap kth node from beginning with kth node from end in a Linked List
-* Given a linked list, write a function to reverse every k nodes. (where k is an input to the function). If a linked list is given as 12->23->45->89->15->67->28->98->NULL and k = 3 then output will be 45->23->12->67->15->89->98->28->NULL.
-* Given a singly linked list, rotate the linked list counter-clockwise by k nodes. Where k is a given positive integer. For example, if the given linked list is 10->20->30->40->50->60 and k is 4, the list should be modified to 50->60->10->20->30->40. Assume that k is smaller than the count of nodes in linked list.
-* WAP to remove the duplicates in a sorted double linked list.
-
+* WAP to find number of occurrences of all elements in a linked list. ✅
+* WAP to modify the linked list such that all even numbers appear before all the odd numbers in the modified linked list.✅
+* WAP to check whether a singly linked list is a palindrome or not.✅
+* A linked list is said to contain a cycle if any node is visited more than once while traversing the list. WAP to detect a cycle in a linked list.✅
+* WAP to reverse only even position nodes in a singly linked list.✅
+* WAP to swap kth node from beginning with kth node from end in a Linked List✅
+* Given a linked list, write a function to reverse every k nodes. (where k is an input to the function). If a linked list is given as 12->23->45->89->15->67->28->98->NULL and k = 3 then output will be 45->23->12->67->15->89->98->28->NULL.✅
+* Given a singly linked list, rotate the linked list counter-clockwise by k nodes. Where k is a given positive integer. For example, if the given linked list is 10->20->30->40->50->60 and k is 4, the list should be modified to 50->60->10->20->30->40. Assume that k is smaller than the count of nodes in linked list.✅
+* WAP to remove the duplicates in a sorted double linked list.✅
 
 
 # O/P
