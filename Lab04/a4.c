@@ -1,16 +1,19 @@
 /*WAP to create a single circular double linked list of n nodes and display the linked list by using suitable user defined functions for create and display operations.*/
+/***
+ * @bug the question must contain singly circular linklist
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
 struct Node{
     int data;
-    struct Node *prev, *next;
+    struct Node /**prev,*/ *next;
 };
 
 struct Node* createNode(int d){
     struct Node *t=(struct Node*)malloc(sizeof(struct Node));
     t->data=d;
-    t->next=t->prev=0;
+    t->next/*=t->prev*/=0;
     return t;
 }
 
@@ -20,17 +23,17 @@ struct Node* insert(struct Node* head){
     scanf("%d",&k);
     struct Node *temp=createNode(k);
     if(!head){
-        temp->prev = temp->next = temp;
+        /*temp->prev =*/ temp->next = temp;
         head = temp;
         return head;
     }
     struct Node* t = head;
     while(t->next!=head)  t=t->next;
     t->next = temp;
-    temp->prev = t;
+    // temp->prev= t;
 
     temp->next = head;
-    head->prev = temp;
+    // head->prev = temp;
 
     return head;
 }
