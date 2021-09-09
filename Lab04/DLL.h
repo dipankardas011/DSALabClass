@@ -1,27 +1,27 @@
-struct Node{
+typedef struct Node{
     int data;
     struct Node *prev, *next;
-};
+}DNode;
 
-struct Node* createNode(int d){
-    struct Node *t=(struct Node*)malloc(sizeof(struct Node));
+DNode* createNode(int d){
+    DNode *t=(DNode*)malloc(sizeof(DNode));
     t->data=d;
     t->next=t->prev=0;
     return t;
 }
-struct Node* insertUsr(struct Node* head, int k){
+DNode* insertUsr(DNode* head, int k){
     
     if(!head){
         return createNode(k);
     }
-    struct Node* t = head;
+    DNode* t = head;
     while(t->next)  t=t->next;
     t->next = createNode(k);
     t->next->prev = t;
 
     return head;
 }
-struct Node* insert(struct Node* head){
+DNode* insert(DNode* head){
     int k;
     printf("Enter data: ");
     scanf("%d",&k);
@@ -29,7 +29,7 @@ struct Node* insert(struct Node* head){
     if(!head){
         return createNode(k);
     }
-    struct Node* t = head;
+    DNode* t = head;
     while(t->next)  t=t->next;
     t->next = createNode(k);
     t->next->prev = t;
@@ -37,7 +37,7 @@ struct Node* insert(struct Node* head){
     return head;
 }
 
-struct Node* display(struct Node* head){
+DNode* display(DNode* head){
     do{
         printf("%d",head->data);
         head = head->next;
@@ -45,8 +45,8 @@ struct Node* display(struct Node* head){
     printf("\n");
 }
 
-void deleteNode(struct Node* head){
-    struct Node* t=0;
+void deleteNode(DNode* head){
+    DNode* t=0;
     while(head){
         t=head;
         head = head->next;
