@@ -45,7 +45,7 @@ int isEmpty(Stack s){
 
 int main(int argc, char const *argv[])
 {
-    int arr[]={2,3,6,2,6,7};
+    int arr[]={2,3,6,1,9,7};
     Stack stk1;
     stk1.top = -1;
     int n = sizeof(arr)/sizeof(int);

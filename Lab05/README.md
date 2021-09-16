@@ -28,3 +28,15 @@ Input: {[(])} and Output: NO✅
     - peekLowestElement - return the lowest element in the stack without removing it from the stack
     - peekHighestElement - return the highest element in the stack without removing it from the stack
     - peekMiddleElement - return the (size/2+1)th lowest element in the stack without removing it from the stack.✅
+
+# O/P
+
+![](../Lab05/01.png)
+![](../Lab05/02.png)
+![](../Lab05/03.png)
+![](../Lab05/04.png)
+![](../Lab05/05.png)
+![](../Lab05/06.png)
+![](../Lab05/07.png)
+![](../Lab05/08.png)
+

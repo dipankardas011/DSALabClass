@@ -96,7 +96,7 @@ int findCelebrity(int n)
         {
           push(&s, A);
         }
-        display(s);
+        //display(s);
     }
     // If there are only two people
     // and there is no
