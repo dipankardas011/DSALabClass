@@ -1,6 +1,10 @@
 # DSALabClass
 
+the Questions are under the KIIT CSE 2021
+cannot be use for teaching others services
+
 3rd semister
+
 all the DSA Lab class codes
 
 all Data Structures topics in C language
