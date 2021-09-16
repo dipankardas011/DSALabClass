@@ -88,11 +88,11 @@ int findCelebrity(int n)
         pop(&s);
         int B = peek(s);
         pop(&s);
-        if (MATRIX[A][B])
+        if (MATRIX[A][B])   // it A knows B == 1 then push back B
         {
           push(&s, B);
         }
-        else
+        else        // if A dos't know B then push A
         {
           push(&s, A);
         }
