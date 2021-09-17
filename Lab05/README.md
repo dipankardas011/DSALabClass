@@ -39,4 +39,5 @@ Input: {[(])} and Output: NO✅
 ![](../Lab05/06.png)
 ![](../Lab05/07.png)
 ![](../Lab05/08.png)
+![](../Lab05/09.png)
 

@@ -155,7 +155,7 @@ int main(int argc, char **argv){
     reverseStr(exp);
     
 
-    printf("Inorder expression: %s\n",exp);
+    // printf("Inorder expression: %s\n",exp);
     char EXP[EXPLEN]={0};
     convertToPostFix(exp, EXP);
     
