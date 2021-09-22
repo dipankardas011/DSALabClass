@@ -13,6 +13,13 @@
 
 
 ## O/P
+![](../Lab06/01.png)
+![](../Lab06/02.png)
+![](../Lab06/03.png)
+![](../Lab06/04.png)
+![](../Lab06/05.png)
+![](../Lab06/06.png)
+![](../Lab06/07.png)
 
 
 
@@ -22,8 +29,14 @@
 * Write a menu driven program to implement circular queue operations such as Enqueue, Dequeue, Peek, Display of elements, IsEmpty, IsFull using static array.✅
 * Write a menu driven program to implement Deques (both Input-restricted and Output-restricted) operations such as Enqueue, Dequeue, Peek, Display of elements, IsEmpty, IsFull using static array.✅
 * Write a menu driven program to implement circular queue operations such as Enqueue, Dequeue, Peek, Display of elements, IsEmpty using linked list.✅
-* Write a menu driven program to implement circular queue operations such as Enqueue, Dequeue, Peek, Display of elements, IsEmpty using linked list.🤣{Same}
 
 ## O/P
 
+![](../Lab06/11.png)
+![](../Lab06/12.png)
+![](../Lab06/13.png)
+![](../Lab06/14.png)
+![](../Lab06/15.png)
+![](../Lab06/16.png)
+![](../Lab06/17.png)
 

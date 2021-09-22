@@ -1,6 +1,8 @@
 /*Write a menu driven program to implement Deques (both Input-restricted and Output-restricted) operations such as Enqueue, Dequeue, Peek, Display of elements, IsEmpty, IsFull using static array.*/
 #include <stdio.h>
 #define DEF_TERM printf("\033[0m\n")
+// input restricted  == means pushfront ❌
+// output restricted  == means popRear ❌
 
 #define LEN 5
 
@@ -30,16 +32,16 @@ void pushRear(int d){
     queue[rear] = d;
 }
 
-void pushFront(int d){
-    if(isEmpty() || front == 0){
-        printf("\033[31mFull from front\n");
-        DEF_TERM;
-        return;
-    }
-    else
-        front--;
-    queue[front] = d;
-}
+// void pushFront(int d){
+//     if(isEmpty() || front == 0){
+//         printf("\033[31mFull from front\n");
+//         DEF_TERM;
+//         return;
+//     }
+//     else
+//         front--;
+//     queue[front] = d;
+// }
 
 int popFront(){
     int x;
@@ -55,19 +57,19 @@ int popFront(){
     return x;
 }
 
-int popRear(){
-    int x;
-    if(isEmpty())
-        x = -999;
-    else if(rear == front){
-        x = queue[rear];
-        front = rear =  -1;
-    }
-    else
-        x = queue[rear--];
+// int popRear(){
+//     int x;
+//     if(isEmpty())
+//         x = -999;
+//     else if(rear == front){
+//         x = queue[rear];
+//         front = rear =  -1;
+//     }
+//     else
+//         x = queue[rear--];
 
-    return x;
-}
+//     return x;
+// }
 
 int peek(){
     return (isEmpty()) ? -999 : queue[front];
@@ -113,9 +115,8 @@ int main(int argc, char const *argv[])
             break;
 
             case 3:
-            printf("Enter element to insert: ");
-            scanf("%d",&k);
-            pushFront(k);
+            printf("\033[41mINPUT_RESTRICTED");
+            DEF_TERM;
             break;
 
             case 4:
@@ -125,8 +126,7 @@ int main(int argc, char const *argv[])
             break;
 
             case 5:
-            k = popRear();
-            (k==-999) ? printf("\033[31mEmpty!\n") : printf("\033[33;44mpopped from rear: %d",k);
+            printf("\033[41mOUTPUT_RESTRICTED");
             DEF_TERM;
             break;
 
