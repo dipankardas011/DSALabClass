@@ -21,37 +21,64 @@ Calculate the first point from where a truck will be able to complete the circle
 #include <stdlib.h>
 #define INV -111
 /// array implementation ////
-typedef struct node {
-    int petrol;
-    int distance;
-}Car;
+typedef struct node
+{
+  int petrol;
+  int distance;
+} Car;
 Car *queue = NULL;
+int SIZE;
 
-
-void allocateMemory(int n) {
-    queue = (Car*)malloc(sizeof(Car)*n);
+void allocateMemory(int n)
+{
+  SIZE = n;
+  queue = (Car *)malloc(sizeof(Car) * n);
+  for(int i = 0; i<SIZE; i++)
+  {
+    scanf("%d %d",&queue[i].petrol, &queue[i].distance);
+  }
 }
-void freeAllocatedMemory() {
-    free(queue);
-}
-
-
-void execTask() {
-    // use circular traversal
-}
-
-
-int main(int argc, char **argv) {
-    int N;
-    fprintf(stdout, "Enter the Number of petrol pumps: ");
-    fscanf(stdin, "%d", &N);
-    allocateMemory(N);
-
-    /***
-     * rest of the code
-     */
-
-    freeAllocatedMemory();
-    return EXIT_SUCCESS;
+void freeAllocatedMemory()
+{
+  free(queue);
 }
 
+void execTask()
+{
+  // use circular traversal
+  for (int i = 0; i <SIZE; i++)
+  {
+    int start = (i)%SIZE;
+    int petrolInTank = 0;
+    int flag = 0;
+    do{
+      petrolInTank += queue[start].petrol;
+      
+      if(petrolInTank < queue[start].distance) {
+        flag = 1;
+        break;
+      }
+      // the petrol is consumed so remove it from the TANK
+      petrolInTank -= queue[start].distance;
+      //printf("Left petrol: ",petrolInTank);
+      start = (start+1)%SIZE;
+    }while(start != i);
+    if(flag == 0){
+      printf("Start petrol position: %d\n",i+1);
+      break;
+    }
+  }
+}
+
+int main(int argc, char **argv)
+{
+  int N;
+  fprintf(stdout, "Enter the Number of petrol pumps: ");
+  fscanf(stdin, "%d", &N);
+  allocateMemory(N);
+
+  execTask();
+
+  freeAllocatedMemory();
+  return EXIT_SUCCESS;
+}
