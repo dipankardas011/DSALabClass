@@ -9,4 +9,4 @@
     3->traversal
     4->display✅
 
-* wap to create Binary tree ans store as per the user input (NOTE filling as left to right)
+* wap to create Binary tree ans store as per the user input (NOTE filling as left to right)✅
