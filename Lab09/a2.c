@@ -29,32 +29,6 @@ BST *allocateMemory(int key) {
     return t;
 }
 
-// void insertNode(BST **root, int key) {
-//     if ((*root)) {
-//         if ((*root)->key < key) {
-//             if ((*root)->right) {
-//                 insertNode((*root)->right, key);
-//             } else {
-//                 (*root)->right = allocateMemory(key);
-//                 return ;
-//             }
-//         }
-//         else if ((*root)->key > key) {
-//             if ((*root)->left) {
-//                 insertNode((*root)->left, key);
-//             } else {
-//                 (*root)->left = allocateMemory(key);
-//                 return ;
-//             }
-//         }
-//         else {
-//             return;
-//         }
-//     } else {
-//         // means no entry for root itself as in other cases it will not reach here
-//         *root = allocateMemory(key);
-//     }
-// }
 
 void insertNode(BST **root, int key) {
     if (!(*root)) {
@@ -119,6 +93,70 @@ void postorderTraversal(BST *root) {
         printf("%d ",root->key);
     }
 }
+/**
+ * @def right most node of left subtree
+ * it requires the root->left to be passed to get the result
+ * @return right most node of left subtree
+ */
+BST *inorderSuccessor(BST *subroot) {
+    while (subroot->right) {
+        subroot = subroot->right;
+    }
+    return subroot;
+}
+
+/**
+ * @def left most node of right subtree
+ * it requires the root->right to be passed to get the result
+ * @return left most node of right subtree
+ */
+BST *inorderPredessor(BST *subroot) {
+    while (subroot->left) {
+        subroot = subroot->left;
+    }
+    return subroot;
+}
+
+/**
+ * @def return the minimum key value from left subtree of the tree
+ */
+
+BST *leftMostNode(BST *root) {
+    while (root->left)
+        root = root->left;
+
+    return root;
+}
+
+/**
+ * @def return the maximum key value from right subtree of the tree
+ */
+
+BST *rightMostNode(BST *root) {
+    while (root->right)
+        root = root->right;
+
+    return root;
+}
+
+BST *searchKey(BST *root, int searchkey) {
+    if (root) {
+        if (root->key == searchkey) {
+            return root;
+        }
+
+        if (searchkey > root->key) {
+            return searchKey(root->right, searchkey);
+        }
+        if (searchkey < root->key) {
+            return searchKey(root->left, searchkey);
+        }
+    } else {
+        return NULL;
+    }
+}
+
+
 
 int main(int argc, char **argv) {
     BST *root = 0;
@@ -137,7 +175,7 @@ int main(int argc, char **argv) {
 
             case 2:
             printf("=====================\n");
-            printf("[");
+            printf("InorderTraversal [ ");
             inorderTraversal(root);
             printf("]\n");
             printf("=====================\n");
@@ -145,7 +183,7 @@ int main(int argc, char **argv) {
 
             case 3:
             printf("=====================\n");
-            printf("[");
+            printf("PreorderTraversal [");
             preorderTraversal(root);
             printf("]\n");
             printf("=====================\n");
@@ -153,19 +191,25 @@ int main(int argc, char **argv) {
 
             case 4:
             printf("=====================\n");
-            printf("[");
+            printf("PostorderTraversal [");
             postorderTraversal(root);
             printf("]\n");
             printf("=====================\n");
             break;
 
             case 5:
+            printf("\tEnter the key to search: ");
+            scanf("%d",&kk);
+            BST *search = searchKey(root,kk);
+            (search) ? printf("FOUND! (key){%d}\n",search->key) : printf("NOT FOUND\n");
             break;
 
             case 6:
+            printf("Smallest Element: %d\n",leftMostNode(root)->key);
             break;
 
             case 7:
+            printf("Largest Element: %d\n",rightMostNode(root)->key);
             break;
 
             case 8:
