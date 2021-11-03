@@ -157,6 +157,127 @@ BST *searchKey(BST *root, int searchkey) {
 }
 
 
+BST *findParentOfNode(BST *root, int key) {
+    if (root) {
+
+        // if the root is the key
+        if (key == root->key) {
+            return root;
+        }
+
+        if (key < root->key && root->left) {
+            return (root->left->key == key) ? root : findParentOfNode(root->left,key);
+        }
+        if (key > root->key && root->right) {
+            return (root->right->key == key) ? root : findParentOfNode(root->right, key);
+        }
+    } else {
+        return NULL;
+    }
+}
+
+int isLeaf(BST *root) {
+    return (!(root->left) && !(root->right)) ? 1 : 0;
+}
+
+BST *deleteNode(BST *root, int key) {
+
+    BST *deleteIt = searchKey(root, key);
+    if (deleteIt!=NULL) {
+        printf("Is present\n");
+        BST *parent = findParentOfNode(root,key);
+        printf("the parent-> %d\n",parent->key);
+
+
+        if (isLeaf(deleteIt)) {
+            if (deleteIt->key == root->key) {
+                free(root);
+                root = NULL;
+                // return;
+                return root;
+            }
+            // remove the node simply
+            if (parent->left && parent->left->key == deleteIt->key) 
+                parent->left = NULL;
+            else
+                parent->right = NULL;
+
+            free(deleteIt);
+            // return ;
+            return root;
+        }
+        if (deleteIt->left && deleteIt->right == NULL) {
+            // left is present only
+            if (deleteIt->key == root->key) {
+                root = root->left;
+                free(deleteIt);
+                // return;
+                return root;
+            }
+            if (parent->left && parent->left->key == deleteIt->key) 
+                parent->left = deleteIt->left;
+            else
+                parent->right = deleteIt->left;
+
+            free(deleteIt);
+            // return;
+            return root;
+        }
+
+        if (deleteIt->right && deleteIt->left == NULL) {
+            // right is present only
+            if (deleteIt->key == root->key) {
+                root = root->right;
+                free(deleteIt);
+                // return;
+                return root;
+            }
+            if (parent->right && parent->right->key == deleteIt->key) 
+                parent->right = deleteIt->right;
+            else
+                parent->left = deleteIt->right;
+
+            free(deleteIt);
+            // return;
+            return root;
+        }
+
+        // left is that both children are present
+        // use the inorderSuccessor
+        if (deleteIt->key == root->key) {
+            // root = root->right;
+            // free(deleteIt);
+            BST *highestLeftSubtree = inorderSuccessor(deleteIt->left);
+            printf("Highestleft: %d\n",highestLeftSubtree->key);
+            BST *parent_ofHighLeft = findParentOfNode(root, highestLeftSubtree->key);
+            printf("Highestleft parent: %d\n",parent_ofHighLeft->key);
+
+            deleteIt->key = highestLeftSubtree->key;
+            // we know that remove the highestLeftSubtree
+            // we set the link to the
+            if (parent_ofHighLeft->left && parent_ofHighLeft->left->key == highestLeftSubtree->key)
+                parent_ofHighLeft->left = highestLeftSubtree->left;
+            else
+                parent_ofHighLeft->right = highestLeftSubtree->left;
+            free(highestLeftSubtree);
+            // return ;
+            return root;
+        }
+        BST *highestLeftSubtree = inorderSuccessor(deleteIt->left);
+        BST *parent_ofHighLeft = findParentOfNode(root, highestLeftSubtree->key);
+        deleteIt->key = highestLeftSubtree->key;
+        if (parent_ofHighLeft->left && parent_ofHighLeft->left->key == highestLeftSubtree->key)
+            parent_ofHighLeft->left = highestLeftSubtree->left;
+        else
+            parent_ofHighLeft->right = highestLeftSubtree->left;
+        free(highestLeftSubtree);
+        return root;
+    } else {
+        printf("Not Present\n");
+    }
+}
+
+
 
 int main(int argc, char **argv) {
     BST *root = 0;
@@ -183,7 +304,7 @@ int main(int argc, char **argv) {
 
             case 3:
             printf("=====================\n");
-            printf("PreorderTraversal [");
+            printf("PreorderTraversal [ ");
             preorderTraversal(root);
             printf("]\n");
             printf("=====================\n");
@@ -191,7 +312,7 @@ int main(int argc, char **argv) {
 
             case 4:
             printf("=====================\n");
-            printf("PostorderTraversal [");
+            printf("PostorderTraversal [ ");
             postorderTraversal(root);
             printf("]\n");
             printf("=====================\n");
@@ -213,6 +334,9 @@ int main(int argc, char **argv) {
             break;
 
             case 8:
+            printf("\tEnter key whose parent is to be found: ");
+            scanf("%d",&kk);
+            root = deleteNode(root, kk);
             break;
         }
     }while (ch);
