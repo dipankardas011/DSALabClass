@@ -1,18 +1,15 @@
-/*•	WAP Write the following menu driven program for the binary search tree
-----------------------------------------
+/*WAP Write the following menu driven program for the binary search tree
 Binary Search Tree Menu
-----------------------------------------
 0. Quit
-1. Create
+1. Create (Insert a node as per user entered key value.)
 2. In-Order Traversal
 3. Pre-Order Traversal
 4. Post-Order traversal
-5. Search
+5. Search an element
 6. Find Smallest Element
 7. Find Largest Element
-8. Deletion node of Tree
-----------------------------------------
-Enter your choice:
+8. Deletion of a node as per user entered key value.
+ Deletion of the whole Tree
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -184,16 +181,12 @@ BST *deleteNode(BST *root, int key) {
 
     BST *deleteIt = searchKey(root, key);
     if (deleteIt!=NULL) {
-        printf("Is present\n");
         BST *parent = findParentOfNode(root,key);
-        printf("the parent-> %d\n",parent->key);
 
-
-        if (isLeaf(deleteIt)) {
+        if (isLeaf(deleteIt)) {// no child 
             if (deleteIt->key == root->key) {
                 free(root);
                 root = NULL;
-                // return;
                 return root;
             }
             // remove the node simply
@@ -203,15 +196,13 @@ BST *deleteNode(BST *root, int key) {
                 parent->right = NULL;
 
             free(deleteIt);
-            // return ;
             return root;
         }
-        if (deleteIt->left && deleteIt->right == NULL) {
+        if (deleteIt->left && deleteIt->right == NULL) { // only left child
             // left is present only
             if (deleteIt->key == root->key) {
                 root = root->left;
                 free(deleteIt);
-                // return;
                 return root;
             }
             if (parent->left && parent->left->key == deleteIt->key) 
@@ -220,16 +211,14 @@ BST *deleteNode(BST *root, int key) {
                 parent->right = deleteIt->left;
 
             free(deleteIt);
-            // return;
             return root;
         }
 
-        if (deleteIt->right && deleteIt->left == NULL) {
+        if (deleteIt->right && deleteIt->left == NULL) { // only right child
             // right is present only
             if (deleteIt->key == root->key) {
                 root = root->right;
                 free(deleteIt);
-                // return;
                 return root;
             }
             if (parent->right && parent->right->key == deleteIt->key) 
@@ -238,19 +227,14 @@ BST *deleteNode(BST *root, int key) {
                 parent->left = deleteIt->right;
 
             free(deleteIt);
-            // return;
             return root;
         }
 
-        // left is that both children are present
-        // use the inorderSuccessor
+        // both children are present
+        // use the inorderSuccessor(highest in left subtree of the deleteIt node)
         if (deleteIt->key == root->key) {
-            // root = root->right;
-            // free(deleteIt);
             BST *highestLeftSubtree = inorderSuccessor(deleteIt->left);
-            printf("Highestleft: %d\n",highestLeftSubtree->key);
             BST *parent_ofHighLeft = findParentOfNode(root, highestLeftSubtree->key);
-            printf("Highestleft parent: %d\n",parent_ofHighLeft->key);
 
             deleteIt->key = highestLeftSubtree->key;
             // we know that remove the highestLeftSubtree
@@ -260,7 +244,6 @@ BST *deleteNode(BST *root, int key) {
             else
                 parent_ofHighLeft->right = highestLeftSubtree->left;
             free(highestLeftSubtree);
-            // return ;
             return root;
         }
         BST *highestLeftSubtree = inorderSuccessor(deleteIt->left);
@@ -274,6 +257,7 @@ BST *deleteNode(BST *root, int key) {
         return root;
     } else {
         printf("Not Present\n");
+        return root;
     }
 }
 
@@ -284,7 +268,7 @@ int main(int argc, char **argv) {
     int ch = 0;
     do {
         welcomePage();
-        printf("Enter choice[0/9] -> ");
+        printf("Enter choice[0/8] -> ");
         scanf("%d",&ch);
         int kk=0;
         switch(ch) {
@@ -334,7 +318,7 @@ int main(int argc, char **argv) {
             break;
 
             case 8:
-            printf("\tEnter key whose parent is to be found: ");
+            printf("\tEnter key to delete: ");
             scanf("%d",&kk);
             root = deleteNode(root, kk);
             break;
