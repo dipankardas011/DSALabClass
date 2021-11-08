@@ -13,6 +13,7 @@ Binary Search Tree Menu
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 typedef struct node {
     int key;
@@ -66,6 +67,9 @@ void welcomePage() {
     printf("> 8. Deletion node of Tree\n");
     printf("> 9. No. of leaves of Tree\n");
     printf("> 10. No. of non-leaves of Tree\n");
+    printf("> 11. No. of nodes of Tree\n");
+    printf("> 12. Sum of all nodes of Tree\n");
+    printf("> 13. Depth of node specified in Tree\n");
 }
 
 void inorderTraversal(BST *root) {
@@ -321,14 +325,49 @@ int noOfLeafNodes(BST *root) {
     return noOfLeafNodes(root->left) + noOfLeafNodes(root->right);
 }
 
-int noOfNonLeafNodes(BST *root) {}
+int noOfNonLeafNodes(BST *root) {
+    if (root) {
+        if (isLeaf(root))
+            return 0;
 
-int noOfNodes(BST *root) {}
+        return 1 + noOfNonLeafNodes(root->left) + noOfNonLeafNodes(root->right);
+    } else {
+        return 0;
+    }
+}
 
-int sumOfAllNodes(BST *root) {}
+int noOfNodes(BST *root) {
+    if (root) {
+        return 1 + noOfNodes(root->left) + noOfNodes(root->right);
+    } else {
+        return 0;
+    }
+}
 
-int depthOfTree(BST *root) {}
+size_t sumOfAllNodes(BST *root) {
+    if (root) {
+        return root->key + sumOfAllNodes(root->left) + sumOfAllNodes(root->right);
+    } else {
+        return 0;
+    }
+}
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+/**
+ * @param depth passed 0 initially
+ */
+int depthOfTree(BST *root, int key, int depth) {
+    if (!root) {
+        return 0;
+    }
 
+    if (root->key == key) {
+        return depth;
+    }
+    return max(depthOfTree(root->left, key, depth + 1), depthOfTree(root->right, key, depth + 1));
+}
+// max depth == height of tree
 BST *getNodeWithMaxDepth(BST *root) {}
 
 BST *printKthLevel(BST *root) {}
@@ -342,68 +381,95 @@ int main(int argc, char **argv) {
     int ch = 0;
     do {
         welcomePage();
-        printf("Enter choice[0/9] -> ");
+        printf("Enter choice[0/13] -> ");
         scanf("%d",&ch);
         int kk=0;
         switch(ch) {
-            case 1:
-            printf("\tEnter the key to insert: ");
-            scanf("%d",&kk);
-            insertNode(&root, kk);
-            break;
+            case 1: {
+                printf("\tEnter the key to insert: ");
+                scanf("%d",&kk);
+                insertNode(&root, kk);
+                break;
+            }
 
-            case 2:
-            printf("=====================\n");
-            printf("InorderTraversal [ ");
-            inorderTraversal(root);
-            printf("]\n");
-            printf("=====================\n");
-            break;
+            case 2: {
+                printf("=====================\n");
+                printf("InorderTraversal [ ");
+                inorderTraversal(root);
+                printf("]\n");
+                printf("=====================\n");
+                break;
+            }
 
-            case 3:
-            printf("=====================\n");
-            printf("PreorderTraversal [ ");
-            preorderTraversal(root);
-            printf("]\n");
-            printf("=====================\n");
-            break;
+            case 3: {
+                printf("=====================\n");
+                printf("PreorderTraversal [ ");
+                preorderTraversal(root);
+                printf("]\n");
+                printf("=====================\n");
+                break;
+            }
 
-            case 4:
-            printf("=====================\n");
-            printf("PostorderTraversal [ ");
-            postorderTraversal(root);
-            printf("]\n");
-            printf("=====================\n");
-            break;
+            case 4: {
+                printf("=====================\n");
+                printf("PostorderTraversal [ ");
+                postorderTraversal(root);
+                printf("]\n");
+                printf("=====================\n");
+                break;
+            }
 
-            case 5:
-            printf("\tEnter the key to search: ");
-            scanf("%d",&kk);
-            BST *search = searchKey(root,kk);
-            (search) ? printf("FOUND! (key){%d}\n",search->key) : printf("NOT FOUND\n");
-            break;
+            case 5: {
+                printf("\tEnter the key to search: ");
+                scanf("%d",&kk);
+                BST *search = searchKey(root,kk);
+                (search) ? printf("FOUND! (key){%d}\n",search->key) : printf("NOT FOUND\n");
+                break;
+            }
 
-            case 6:
-            printf("Smallest Element: %d\n",leftMostNode(root)->key);
-            break;
+            case 6: {
+                printf("Smallest Element: %d\n",leftMostNode(root)->key);
+                break;
+            }
 
-            case 7:
-            printf("Largest Element: %d\n",rightMostNode(root)->key);
-            break;
+            case 7: {
+                printf("Largest Element: %d\n",rightMostNode(root)->key);
+                break;
+            }
 
-            case 8:
-            printf("\tEnter key to delete: ");
-            scanf("%d",&kk);
-            root = deleteNode(root, kk);
-            break;
+            case 8: {
+                printf("\tEnter key to delete: ");
+                scanf("%d",&kk);
+                root = deleteNode(root, kk);
+                break;
+            }
 
-            case 9:
-            printf("No of leaves: %d\n", noOfLeafNodes(root));
-            break;
+            case 9: {
+                printf("No. of leaves: %d\n", noOfLeafNodes(root));
+                break;
+            }
 
-            case 10:
-            printf("No non-leaf nodes: %d\n", noOfNonLeafNodes(root));
-            break;
+            case 10: {
+                printf("No. non-leaf nodes: %d\n", noOfNonLeafNodes(root));
+                break;
+            }
+
+            case 11: {
+                printf("Total no. nodes: %d\n", noOfNodes(root));
+                break;
+            }
+
+            case 12: {
+                printf("Sum of all nodes: %ld\n", sumOfAllNodes(root));
+                break;
+            }
+
+            case 13: {
+                printf("Enter the key whose depth is to be found: ");
+                scanf("%d", &kk);
+                assert(searchKey(root, kk) != NULL);
+                printf("Depth of key{%d}: %d\n", kk, depthOfTree(root, kk, 0));
+            }
         }
     }while (ch);
 
