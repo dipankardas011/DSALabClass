@@ -64,6 +64,7 @@ void welcomePage() {
     printf("> 6. Find Smallest Element\n");
     printf("> 7. Find Largest Element\n");
     printf("> 8. Deletion node of Tree\n");
+    printf("> 9. No. of leaves of Tree\n");
 }
 
 void inorderTraversal(BST *root) {
@@ -95,7 +96,7 @@ void postorderTraversal(BST *root) {
  * it requires the root->left to be passed to get the result
  * @return right most node of left subtree
  */
-BST *inorderSuccessor(BST *subroot) {
+BST *inorderPredessor(BST *subroot) {
     while (subroot->right) {
         subroot = subroot->right;
     }
@@ -107,7 +108,7 @@ BST *inorderSuccessor(BST *subroot) {
  * it requires the root->right to be passed to get the result
  * @return left most node of right subtree
  */
-BST *inorderPredessor(BST *subroot) {
+BST *inorderSuccessor(BST *subroot) {
     while (subroot->left) {
         subroot = subroot->left;
     }
@@ -233,7 +234,7 @@ BST *deleteNode(BST *root, int key) {
         // both children are present
         // use the inorderSuccessor(highest in left subtree of the deleteIt node)
         if (deleteIt->key == root->key) {
-            BST *highestLeftSubtree = inorderSuccessor(deleteIt->left);
+            BST *highestLeftSubtree = inorderPredessor(deleteIt->left);
             BST *parent_ofHighLeft = findParentOfNode(root, highestLeftSubtree->key);
 
             deleteIt->key = highestLeftSubtree->key;
@@ -246,7 +247,7 @@ BST *deleteNode(BST *root, int key) {
             free(highestLeftSubtree);
             return root;
         }
-        BST *highestLeftSubtree = inorderSuccessor(deleteIt->left);
+        BST *highestLeftSubtree = inorderPredessor(deleteIt->left);
         BST *parent_ofHighLeft = findParentOfNode(root, highestLeftSubtree->key);
         deleteIt->key = highestLeftSubtree->key;
         if (parent_ofHighLeft->left && parent_ofHighLeft->left->key == highestLeftSubtree->key)
@@ -261,14 +262,70 @@ BST *deleteNode(BST *root, int key) {
     }
 }
 
+BST* deleteNode2v(BST* root, int key)
+{
+    // base case
+    if (root == NULL)
+        return root;
+ 
+    // If the key to be deleted
+    // is smaller than the root's
+    // key, then it lies in left subtree
+    if (key < root->key)
+        root->left = deleteNode(root->left, key);
+ 
+    // If the key to be deleted
+    // is greater than the root's
+    // key, then it lies in right subtree
+    else if (key > root->key)
+        root->right = deleteNode(root->right, key);
+ 
+    // if key is same as root's key,
+    // then This is the node
+    // to be deleted
+    else {
+        // node with only one child or no child
+        if (root->left == NULL) {
+            BST* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL) {
+            BST* temp = root->left;
+            free(root);
+            return temp;
+        }
+ 
+        // node with two children:
+        // Get the inorder successor
+        // (smallest in the right subtree)
+        BST* temp = inorderSuccessor(root->right);
+ 
+        // Copy the inorder
+        // successor's content to this node
+        root->key = temp->key;
+ 
+        // Delete the inorder successor
+        root->right = deleteNode(root->right, temp->key);
+    }
+    return root;
+}
 
+int noOfLeafNodes(BST *root) {
+    if (!root) {
+        return 0;
+    }
+    if (isLeaf(root))
+        return 1;
+    return noOfLeafNodes(root->left) + noOfLeafNodes(root->right);
+}
 
 int main(int argc, char **argv) {
     BST *root = 0;
     int ch = 0;
     do {
         welcomePage();
-        printf("Enter choice[0/8] -> ");
+        printf("Enter choice[0/9] -> ");
         scanf("%d",&ch);
         int kk=0;
         switch(ch) {
@@ -321,6 +378,10 @@ int main(int argc, char **argv) {
             printf("\tEnter key to delete: ");
             scanf("%d",&kk);
             root = deleteNode(root, kk);
+            break;
+
+            case 9:
+            printf("No of leaves: %d\n", noOfLeafNodes(root));
             break;
         }
     }while (ch);

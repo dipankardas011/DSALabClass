@@ -23,3 +23,18 @@ Binary Search Tree Menu
 ![](../Lab09/03.png)
 ![](../Lab09/04.png)
 ![](../Lab09/05.png)
+
+
+# H.A
+1. **(cont)** Extend the LA 1 by providing more options as follows:
+a) To count number of leaf nodes in the tree.
+b) To count number of non-leaf nodes in the tree.
+c) To find number of nodes in the tree.
+d) To find sum of all nodes of the tree.
+e) To print depth of the tree.
+f) To find nodes which are at maximum depth in the tree?
+g) To print all the elements of kth level in single line.
+h) To find the common ancestor and print the paths.
+i) To check whether a tree is a binary search tree or not.
+
+# o/p
