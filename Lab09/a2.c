@@ -65,6 +65,7 @@ void welcomePage() {
     printf("> 7. Find Largest Element\n");
     printf("> 8. Deletion node of Tree\n");
     printf("> 9. No. of leaves of Tree\n");
+    printf("> 10. No. of non-leaves of Tree\n");
 }
 
 void inorderTraversal(BST *root) {
@@ -320,6 +321,22 @@ int noOfLeafNodes(BST *root) {
     return noOfLeafNodes(root->left) + noOfLeafNodes(root->right);
 }
 
+int noOfNonLeafNodes(BST *root) {}
+
+int noOfNodes(BST *root) {}
+
+int sumOfAllNodes(BST *root) {}
+
+int depthOfTree(BST *root) {}
+
+BST *getNodeWithMaxDepth(BST *root) {}
+
+BST *printKthLevel(BST *root) {}
+
+BST *findCommonAncestor_PrintPath(BST *root) {}
+
+int isBinarySearchTree(BST *root) {}
+
 int main(int argc, char **argv) {
     BST *root = 0;
     int ch = 0;
@@ -382,6 +399,10 @@ int main(int argc, char **argv) {
 
             case 9:
             printf("No of leaves: %d\n", noOfLeafNodes(root));
+            break;
+
+            case 10:
+            printf("No non-leaf nodes: %d\n", noOfNonLeafNodes(root));
             break;
         }
     }while (ch);
