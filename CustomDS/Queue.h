@@ -5,7 +5,7 @@
 
 // linklist implementation
 typedef struct {
-  int data;
+  void *data;
   queue *next;
 }queue;
 
@@ -14,13 +14,13 @@ queue *rear = NULL;
 
 bool isEmpty();
 
-queue *createMemo(int key);
+queue *createMemo(void *);
 
-int peek();
+void* peek();
 
 void pop();
 
-void push(int key);
+void push(void* );
 
 void display();
 

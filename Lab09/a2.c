@@ -14,7 +14,7 @@ Binary Search Tree Menu
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
+#include <stdbool.h>
 typedef struct node {
     int key;
     struct node *left, *right;
@@ -70,6 +70,8 @@ void welcomePage() {
     printf("> 11. No. of nodes of Tree\n");
     printf("> 12. Sum of all nodes of Tree\n");
     printf("> 13. Depth of node specified in Tree\n");
+    printf("> 14. Height of Tree\n");
+    printf("> 15. print Kth Level of Tree\n");
 }
 
 void inorderTraversal(BST *root) {
@@ -368,9 +370,41 @@ int depthOfTree(BST *root, int key, int depth) {
     return max(depthOfTree(root->left, key, depth + 1), depthOfTree(root->right, key, depth + 1));
 }
 // max depth == height of tree
-BST *getNodeWithMaxDepth(BST *root) {}
+int heightOfTree(BST *root) {
+    if (!root) {
+        return 0; 
+    }
 
-BST *printKthLevel(BST *root) {}
+    int Hleft = heightOfTree(root->left);
+    int Hright = heightOfTree(root->right);
+    return max(Hleft, Hright) + 1;// if Hleft is MAX then return Hleft + 1 and vicecersa
+}
+
+void printLevel(BST *root, int currlevel, bool toPrint) {
+    if (!root)
+        return;
+
+    if (currlevel == 1 && toPrint == true) {
+        printf("%d ", root->key);
+        return;
+    }
+
+    printLevel(root->left, currlevel - 1, toPrint);
+    printLevel(root->right, currlevel - 1, toPrint);
+}
+
+void printKthLevel(BST *root, int K) {
+    // using Queue datastructure
+    int height = heightOfTree(root);
+    for (int i = 1; i <= height; i++)
+    {
+        printf("{ ");
+        // as level + 1 = height
+        // here i is height 
+        (K + 1 == i) ? printLevel(root, i, true) : printLevel(root, i, false);
+        printf("}\n\n");
+    }
+}
 
 BST *findCommonAncestor_PrintPath(BST *root) {}
 
@@ -381,7 +415,7 @@ int main(int argc, char **argv) {
     int ch = 0;
     do {
         welcomePage();
-        printf("Enter choice[0/13] -> ");
+        printf("Enter choice[0/15] -> ");
         scanf("%d",&ch);
         int kk=0;
         switch(ch) {
@@ -469,6 +503,23 @@ int main(int argc, char **argv) {
                 scanf("%d", &kk);
                 assert(searchKey(root, kk) != NULL);
                 printf("Depth of key{%d}: %d\n", kk, depthOfTree(root, kk, 0));
+                break;
+            }
+
+            case 14: {
+                printf("Enter the key whose height is to be found: ");
+                scanf("%d", &kk);
+                BST *node = searchKey(root, kk);
+                assert(node != NULL);
+                printf("Height: %d\n", heightOfTree(node));
+                break;
+            }
+
+            case 15: {
+                printf("Enter the level to be printed: ");
+                scanf("%d", &kk);
+                printKthLevel(root, kk);
+                break;
             }
         }
     }while (ch);

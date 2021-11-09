@@ -4,7 +4,7 @@ bool isEmpty() {
   return (!front && !rear)? true : false;
 }
 
-queue *createMemo(int key) {
+queue *createMemo(void * key) {
   queue *tmp = (queue *)malloc(sizeof(queue));
   if (!tmp)
   {
@@ -17,14 +17,14 @@ queue *createMemo(int key) {
   return tmp;
 }
 
-int peek () {
+void* peek () {
   if (isEmpty())
     return INV;
 
   return front->data;
 }
 
-void push(int key) {
+void push(void *key) {
   if (isEmpty()) {
     front = rear = createMemo(key);
     return;
@@ -34,7 +34,7 @@ void push(int key) {
   rear = rear->next;
 }
 
-int pop() {
+void pop() {
   if (isEmpty()) {
     return;
   }
@@ -52,16 +52,16 @@ int pop() {
   return;
 }
 
-void display() {
-  if(isEmpty()){
-    printf("[]\n");
-  } else {
-    queue *iter = front;
-    printf("[");
-    do {
-      printf("%d",iter->data);
-      iter=iter->next;
-    }while (iter!=NULL && printf(", "));
-    printf("]\n");
-  }
-}
+// void display() {
+//   if(isEmpty()){
+//     printf("[]\n");
+//   } else {
+//     queue *iter = front;
+//     printf("[");
+//     do {
+//       printf("%ld",iter->data);
+//       iter=iter->next;
+//     }while (iter!=NULL && printf(", "));
+//     printf("]\n");
+//   }
+// }
