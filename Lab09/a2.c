@@ -14,6 +14,7 @@ Binary Search Tree Menu
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <limits.h>
 #include <stdbool.h>
 typedef struct node {
     int key;
@@ -72,6 +73,8 @@ void welcomePage() {
     printf("> 13. Depth of node specified in Tree\n");
     printf("> 14. Height of Tree\n");
     printf("> 15. print Kth Level of Tree\n");
+    printf("> 16. Find the ancestor of Tree\n");
+    printf("> 17. Is Binary Tree == Binary Search Tree\n");
 }
 
 void inorderTraversal(BST *root) {
@@ -406,16 +409,82 @@ void printKthLevel(BST *root, int K) {
     }
 }
 
-BST *findCommonAncestor_PrintPath(BST *root) {}
+BST* findCommonAncestorUTIL(BST* root, int k1, int k2) {
+    if (!root)
+        return NULL;
 
-int isBinarySearchTree(BST *root) {}
+    // If both n1 and n2 are less than root, then ancestor lies in left
+    if (root->key > k1 && root->key > k2)
+        return findCommonAncestorUTIL(root->left, k1, k2);
+
+    // If both n1 and n2 are greater than root, then ancestor lies in right
+    if (root->key < k1 && root->key < k2)
+        return findCommonAncestorUTIL(root->right, k1, k2);
+
+    // this means that whenever the k1 and k2 are not in same subtree return root
+    /**
+     * exaple
+     *      ..
+     *     /  \
+     *   ..   ..
+     *  / \   / \
+     * .. #  # ..
+     * if we selected # then we can see the if statements abpve dont match
+     * thus means that this is the last ancestor
+     */
+    return root;
+}
+
+BST* findCommonAncestor(BST* root, int k1, int k2) {
+    return findCommonAncestorUTIL(root, k1, k2); 
+}
+
+void printPath(BST* root, int k) {
+    if (!root)
+        return;
+    
+    if (root->key == k) {
+        printf("%d", root->key);
+        return;
+    }
+
+    // else recursive call
+    printf("%d->", root->key);
+    (root->key > k) ? printPath(root->left, k) : printPath(root->right, k);
+}
+
+void findCommonAncestor_PrintPath(BST* root, int k1, int k2) {
+    BST* ancestor = findCommonAncestor(root, k1, k2);
+    printf("{");
+    printPath(ancestor, k1);
+    printf("}\n");
+    printf("{");
+    printPath(ancestor, k2);
+    printf("}\n");
+}
+
+int isRelationCorrect(BST* root, int min, int max) {
+    if (!root)
+        return 1;
+
+    if (root->key < min || root->key > max)
+        return 0;
+
+    return isRelationCorrect(root->left, min, root->key) &&
+        isRelationCorrect(root->right, root->key + 1, max);
+}
+
+int isBinarySearchTree(BST* root) {
+    // it must return true
+    return isRelationCorrect(root, INT_MIN, INT_MAX);
+}
 
 int main(int argc, char **argv) {
     BST *root = 0;
     int ch = 0;
     do {
         welcomePage();
-        printf("Enter choice[0/15] -> ");
+        printf("Enter choice[0/17] -> ");
         scanf("%d",&ch);
         int kk=0;
         switch(ch) {
@@ -519,6 +588,22 @@ int main(int argc, char **argv) {
                 printf("Enter the level to be printed: ");
                 scanf("%d", &kk);
                 printKthLevel(root, kk);
+                break;
+            }
+
+            case 16: {
+                printf("Enter the 2 keys to be searched of there common ansestor: ");
+                int k1;
+                int k2;
+                scanf("%d %d", &k1, &k2);
+                assert(searchKey(root, k1) != NULL);
+                assert(searchKey(root, k2) != NULL);
+                printf("Ancestor key value: %d\n", findCommonAncestor(root, k1, k2)->key);
+                findCommonAncestor_PrintPath(root, k1, k2);
+                break;
+            }
+            case 17: {
+                printf("%d\n", isBinarySearchTree(root));
                 break;
             }
         }

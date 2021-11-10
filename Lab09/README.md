@@ -34,7 +34,7 @@ d) To find sum of all nodes of the tree.✅
 e) To print depth of the tree.✅
 f) To find nodes which are at maximum depth in the tree?✅
 g) To print all the elements of kth level in single line.✅
-h) To find the common ancestor and print the paths.
-i) To check whether a tree is a binary search tree or not.
+h) To find the common ancestor and print the paths.✅
+i) To check whether a tree is a binary search tree or not.✅
 
 # o/p
