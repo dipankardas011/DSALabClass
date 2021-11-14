@@ -38,3 +38,9 @@ h) To find the common ancestor and print the paths.✅
 i) To check whether a tree is a binary search tree or not.✅
 
 # o/p
+![](../Lab09/06.png)
+![](../Lab09/07.png)
+![](../Lab09/08.png)
+![](../Lab09/09.png)
+![](../Lab09/10.png)
+![](../Lab09/11.png)

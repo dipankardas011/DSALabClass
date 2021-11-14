@@ -188,89 +188,65 @@ int isLeaf(BST *root) {
     return (!(root->left) && !(root->right)) ? 1 : 0;
 }
 
-BST *deleteNode(BST *root, int key) {
+BST* deleteNode(BST* root, int key) {
+    if (!root)
+        return root;
 
-    BST *deleteIt = searchKey(root, key);
-    if (deleteIt!=NULL) {
-        BST *parent = findParentOfNode(root,key);
+    if (key > root->key)
+        root->right = deleteNode(root->right, key);
 
-        if (isLeaf(deleteIt)) {// no child 
-            if (deleteIt->key == root->key) {
+    else if (key < root->key)
+        root->left = deleteNode(root->left, key);
+
+    else {
+        // got the answer
+        if (!root->left || !root->right) {
+            // anyone | both are NULL
+            BST* tmp = root->left ? root->left : root->right;
+
+            if (!tmp) {
+                // no child
                 free(root);
-                root = NULL;
-                return root;
+                return NULL;// return NULL from where it was called
             }
-            // remove the node simply
-            if (parent->left && parent->left->key == deleteIt->key) 
-                parent->left = NULL;
-            else
-                parent->right = NULL;
-
-            free(deleteIt);
-            return root;
-        }
-        if (deleteIt->left && deleteIt->right == NULL) { // only left child
-            // left is present only
-            if (deleteIt->key == root->key) {
-                root = root->left;
-                free(deleteIt);
-                return root;
+            else {
+                // root == key
+                free(root);
+                return tmp;
             }
-            if (parent->left && parent->left->key == deleteIt->key) 
-                parent->left = deleteIt->left;
-            else
-                parent->right = deleteIt->left;
-
-            free(deleteIt);
-            return root;
         }
-
-        if (deleteIt->right && deleteIt->left == NULL) { // only right child
-            // right is present only
-            if (deleteIt->key == root->key) {
-                root = root->right;
-                free(deleteIt);
-                return root;
-            }
-            if (parent->right && parent->right->key == deleteIt->key) 
-                parent->right = deleteIt->right;
-            else
-                parent->left = deleteIt->right;
-
-            free(deleteIt);
-            return root;
+        else {
+            BST* temp = inorderSuccessor(root->right);
+            root->key = temp->key;
+            //delete the inorder succesor
+            root->right = deleteNode(root->right, temp->key);
         }
-
-        // both children are present
-        // use the inorderSuccessor(highest in left subtree of the deleteIt node)
-        if (deleteIt->key == root->key) {
-            BST *highestLeftSubtree = inorderPredessor(deleteIt->left);
-            BST *parent_ofHighLeft = findParentOfNode(root, highestLeftSubtree->key);
-
-            deleteIt->key = highestLeftSubtree->key;
-            // we know that remove the highestLeftSubtree
-            // we set the link to the
-            if (parent_ofHighLeft->left && parent_ofHighLeft->left->key == highestLeftSubtree->key)
-                parent_ofHighLeft->left = highestLeftSubtree->left;
-            else
-                parent_ofHighLeft->right = highestLeftSubtree->left;
-            free(highestLeftSubtree);
-            return root;
-        }
-        BST *highestLeftSubtree = inorderPredessor(deleteIt->left);
-        BST *parent_ofHighLeft = findParentOfNode(root, highestLeftSubtree->key);
-        deleteIt->key = highestLeftSubtree->key;
-        if (parent_ofHighLeft->left && parent_ofHighLeft->left->key == highestLeftSubtree->key)
-            parent_ofHighLeft->left = highestLeftSubtree->left;
-        else
-            parent_ofHighLeft->right = highestLeftSubtree->left;
-        free(highestLeftSubtree);
-        return root;
-    } else {
-        printf("Not Present\n");
-        return root;
     }
+
+    return root;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 BST* deleteNode2v(BST* root, int key)
 {
