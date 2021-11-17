@@ -11,6 +11,7 @@ typedef struct node {
     struct node* next;
 }SLL;
 
+size_t NoOfNodes = 0;
 
 int insert(SLL** head, int key) {
     SLL* newNode = (SLL*)malloc(sizeof(SLL));
@@ -18,6 +19,7 @@ int insert(SLL** head, int key) {
     newNode->next = NULL;
     if (!(*head)) {
         *head = newNode;
+        NoOfNodes++;
         return 1;
     }
 
@@ -26,6 +28,7 @@ int insert(SLL** head, int key) {
         temp = temp->next;
     if (temp->data == key) {
         //then link the last to the temp
+        NoOfNodes = NoOfNodes;
         SLL* next = temp;
         while (next->next) {
             next = next->next;
@@ -34,6 +37,7 @@ int insert(SLL** head, int key) {
 
         return 0;// indicating that no more input can be taken
     }
+    NoOfNodes++;
     temp->next = newNode;
     return 1;
 }
@@ -57,7 +61,7 @@ void display(SLL* head) {
 int isCyclePresent(SLL* head) {
     SLL* slow = head;
     SLL* fast = head;
-    while (fast && fast->next && slow) {
+    while (fast && fast->next) {
         fast = fast->next->next;
         slow = slow->next;
         if (fast == slow) {
@@ -69,8 +73,8 @@ int isCyclePresent(SLL* head) {
 
 SLL* CyclePresentRet(SLL* head) {
     SLL* slow = head;
-    SLL* fast = head->next;
-    while (fast && fast->next && slow) {
+    SLL* fast = head;
+    while (fast && fast->next) {
         fast = fast->next->next;
         slow = slow->next;
         if (fast == slow) {
@@ -81,20 +85,44 @@ SLL* CyclePresentRet(SLL* head) {
 }
 
 void removeCycles(SLL** head) {
-    SLL* cycleNode = CyclePresentRet(*head);
-    if (!cycleNode) {
-        // no more cycle to be found
+
+    printf("Number of Nodes: %ld\n", NoOfNodes);
+
+    SLL** arr = (SLL**)malloc(sizeof(SLL*)*NoOfNodes);
+    for (int i = 0;i < NoOfNodes;i++)
+        arr[i] = NULL;
+
+    SLL* iter = *head;
+    int iter1 = 0;
+
+    if (iter->next == iter) {
+        iter->next = NULL;// head itself
         return;
     }
-    printf("cycle node: %d\n", cycleNode->data);
-    SLL* cycleTemp = cycleNode->next;
-    while (cycleTemp->next->data != cycleNode->data) {
-        printf("loop %d\n", cycleTemp->data);
-        cycleTemp = cycleTemp->next;
-    }
-    cycleTemp->next = NULL;
-}
+    while (iter1 < NoOfNodes) {
+        arr[iter1] = iter->next;
 
+
+        if (iter->next == *head) {// connected to the first node
+            iter->next = NULL;
+            free(arr);
+            return;
+        }
+
+        for (int j = 0; j < iter1; j++) {// should not check by itself
+            if (iter->next == arr[j]) {
+                iter->next = NULL;
+                free(arr);
+                return;// found
+            }
+        }
+        iter = iter->next;
+        iter1++;
+    }
+
+    free(arr);
+    return;
+}
 
 int main(int argc, char** argv) {
     SLL* head = NULL;
@@ -136,74 +164,6 @@ int main(int argc, char** argv) {
 
     } while (ch);
 
-    // deleteSLL(head);
     remove(argv[0]);
     return EXIT_SUCCESS;
-}
-
-void removeLoop(SLL*, SLL*);
- 
-/* This function detects and removes loop in the list
-  If loop was there in the list then it returns 1,
-  otherwise returns 0 */
-int detectAndRemoveLoop(SLL* list)
-{
-    SLL *slow_p = list, *fast_p = list;
- 
-    // Iterate and find if loop exists or not
-    while (slow_p && fast_p && fast_p->next) {
-        slow_p = slow_p->next;
-        fast_p = fast_p->next->next;
- 
-        /* If slow_p and fast_p meet at some point then there
-           is a loop */
-        if (slow_p == fast_p) {
-            removeLoop(slow_p, list);
- 
-            /* Return 1 to indicate that loop is found */
-            return 1;
-        }
-    }
- 
-    /* Return 0 to indicate that there is no loop*/
-    return 0;
-}
- 
-/* Function to remove loop.
- loop_node --> Pointer to one of the loop nodes
- head -->  Pointer to the start node of the linked list */
-void removeLoop(SLL* loop_node, SLL* head)
-{
-    SLL* ptr1 = loop_node;
-    SLL* ptr2 = loop_node;
- 
-    // Count the number of nodes in loop
-    unsigned int k = 1, i;
-    while (ptr1->next != ptr2) {
-        ptr1 = ptr1->next;
-        k++;
-    }
- 
-    // Fix one pointer to head
-    ptr1 = head;
- 
-    // And the other pointer to k nodes after head
-    ptr2 = head;
-    for (i = 0; i < k; i++)
-        ptr2 = ptr2->next;
- 
-    /*  Move both pointers at the same pace,
-      they will meet at loop starting node */
-    while (ptr2 != ptr1) {
-        ptr1 = ptr1->next;
-        ptr2 = ptr2->next;
-    }
- 
-    // Get pointer to the last node
-    while (ptr2->next != ptr1)
-        ptr2 = ptr2->next;
- 
-    /* Set the next node of the loop ending node
-      to fix the loop */
-    ptr2->next = NULL;
 }
