@@ -71,19 +71,6 @@ int isCyclePresent(SLL* head) {
     return 0;
 }
 
-SLL* CyclePresentRet(SLL* head) {
-    SLL* slow = head;
-    SLL* fast = head;
-    while (fast && fast->next) {
-        fast = fast->next->next;
-        slow = slow->next;
-        if (fast == slow) {
-            return slow;
-        }
-    }
-    return NULL;
-}
-
 void removeCycles(SLL** head) {
 
     printf("Number of Nodes: %ld\n", NoOfNodes);
