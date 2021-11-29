@@ -9,81 +9,96 @@
 
 // assumming that the graph is dense
 
-typedef struct gg {
+typedef struct gg
+{
   int Vertices;
-  bool** graphMat;
-}Graph;
+  bool **graphMat;
+} Graph;
 
-void allocateMemory(int V, Graph* gp) {
+void allocateMemory(int V, Graph *gp)
+{
   gp->Vertices = V;
-  gp->graphMat = (bool**)malloc(sizeof(bool*) * V);
+  gp->graphMat = (bool **)malloc(sizeof(bool *) * V);
   assert(gp->graphMat != NULL);
-  
-  for (int i = 0;i < V;i++) {
-    gp->graphMat[i] = (bool*)malloc(sizeof(bool));
+
+  for (int i = 0; i < V; i++)
+  {
+    gp->graphMat[i] = (bool *)malloc(sizeof(bool));
     assert(gp->graphMat[i] != NULL);
 
-    for (int j = 0;j < V;j++) {
+    for (int j = 0; j < V; j++)
+    {
       gp->graphMat[i][j] = false;
     }
   }
-
 }
 
-void displayGraph(Graph gp) {
+void displayGraph(Graph gp)
+{
   // vertices are 0.... V-1
   printf("Connections\n");
-  for (int i = 0; i < gp.Vertices; i++) {
-    for (int j = 0; j < gp.Vertices; j++) {
-      if (gp.graphMat[i][j]) {
+  for (int i = 0; i < gp.Vertices; i++)
+  {
+    for (int j = 0; j < gp.Vertices; j++)
+    {
+      if (gp.graphMat[i][j])
+      {
         printf("%d -> %d\n", i, j);
       }
     }
   }
 }
 
-bool isValid(int v, int i, int j) {
+bool isValid(int v, int i, int j)
+{
   if ((i < v && i >= 0) && (j < v && j >= 0))
     return true;
   return false;
 }
 
-void makeConnection(Graph* gp, int FROM, int TO) {
-  if (isValid(gp->Vertices, FROM, TO)) {
+void makeConnection(Graph *gp, int FROM, int TO)
+{
+  if (isValid(gp->Vertices, FROM, TO))
+  {
     gp->graphMat[FROM][TO] = true;
     return;
   }
   printf("Invaliid vertices\n");
 }
 
-void removeConnections(Graph* gp, int FROM, int TO) {
-  if (isValid(gp->Vertices, FROM, TO)) {
+void removeConnections(Graph *gp, int FROM, int TO)
+{
+  if (isValid(gp->Vertices, FROM, TO))
+  {
     gp->graphMat[FROM][TO] = false;
     return;
   }
   printf("Invaliid vertices\n");
 }
 
-void BFS(Graph gp){
+void BFS(Graph gp, int startVertice)
+{
   bool *visited = (bool *)malloc(sizeof(bool) * gp.Vertices);
 
-  for (int i = 0; i < gp.Vertices;i++)
+  for (int i = 0; i < gp.Vertices; i++)
     visited[i] = false;
 
-  int startVertice = 1;
   Queue queue;
   queue.front = queue.rear = -1;
 
   push(&queue, startVertice);
   visited[startVertice] = true;
 
-  while(!isEmpty(&queue)){
+  while (!isEmpty(&queue))
+  {
     int v = peek(&queue);
     pop(&queue);
     printf("%d ", v);
 
-    for (int i = 0; i < gp.Vertices; i++){
-      if(!visited[i]){
+    for (int i = 0; i < gp.Vertices; i++)
+    {
+      if (gp.graphMat[v][i] && !visited[i])
+      {
         push(&queue, i);
         visited[i] = true;
       }
@@ -92,26 +107,30 @@ void BFS(Graph gp){
   printf("\n");
 }
 
-void dfsTraversal(int start, Graph gp, bool* visited){
+void dfsTraversal(int start, Graph gp, bool *visited)
+{
   visited[start] = true;
   printf("%d ", start);
 
-  for (int i = 0; i <gp.Vertices; i++){
-    if(!visited[i]){
+  for (int i = 0; i < gp.Vertices; i++)
+  {
+    if (!visited[i] && gp.graphMat[start][i])
+    {
       dfsTraversal(i, gp, visited);
     }
   }
 }
 
-void DFS(Graph gp){
+void DFS(Graph gp, int root)
+{
   bool *visited = (bool *)malloc(sizeof(bool) * gp.Vertices);
 
-  for (int i = 0; i < gp.Vertices;i++)
+  for (int i = 0; i < gp.Vertices; i++)
     visited[i] = false;
-  dfsTraversal(0, gp, visited);
+  dfsTraversal(root, gp, visited);
 }
-
-int main(int argc, char const* argv[]) {
+int main(int argc, char const *argv[])
+{
   Graph gp;
   int v;
   printf("Enter the number of vertices: ");
@@ -119,7 +138,8 @@ int main(int argc, char const* argv[]) {
   allocateMemory(v, &gp);
 
   int ch;
-  do {
+  do
+  {
     printf("Enter 1 to establish connection\n");
     printf("Enter 2 to remove connection\n");
     printf("Enter 3 to display\n");
@@ -128,7 +148,8 @@ int main(int argc, char const* argv[]) {
     printf("Enter 0 to exit\n");
     scanf("%d", &ch);
     int i, j;
-    switch (ch) {
+    switch (ch)
+    {
 
     case 1:
       printf("Enter the 2 vertices{INSERTION} i.e. FROM TO: ");
@@ -144,13 +165,18 @@ int main(int argc, char const* argv[]) {
     case 3:
       displayGraph(gp);
       break;
-      
+
     case 4:
-      BFS(gp);
+      printf("Enter the start vertice: ");
+      scanf("%d", &i);
+      BFS(gp, i);
       break;
 
     case 5:
-      DFS(gp);
+      printf("Enter the start vertice: ");
+      scanf("%d", &i);
+      DFS(gp, i);
+      printf("\n");
       break;
     }
   } while (ch);

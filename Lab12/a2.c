@@ -74,14 +74,13 @@ void removeConnections(Graph *gp, int FROM, int TO)
     printf("Invaliid vertices\n");
 }
 
-void BFS(Graph gp)
+void BFS(Graph gp, int startVertice)
 {
     bool *visited = (bool *)malloc(sizeof(bool) * gp.Vertices);
 
     for (int i = 0; i < gp.Vertices; i++)
         visited[i] = false;
 
-    int startVertice = 1;
     Queue queue;
     queue.front = queue.rear = -1;
 
@@ -96,7 +95,7 @@ void BFS(Graph gp)
 
         for (int i = 0; i < gp.Vertices; i++)
         {
-            if (!visited[i])
+            if (gp.graphMat[v][i] && !visited[i])
             {
                 push(&queue, i);
                 visited[i] = true;
@@ -113,20 +112,20 @@ void dfsTraversal(int start, Graph gp, bool *visited)
 
     for (int i = 0; i < gp.Vertices; i++)
     {
-        if (!visited[i])
+        if (!visited[i] && gp.graphMat[start][i])
         {
             dfsTraversal(i, gp, visited);
         }
     }
 }
 
-void DFS(Graph gp)
+void DFS(Graph gp, int root)
 {
     bool *visited = (bool *)malloc(sizeof(bool) * gp.Vertices);
 
     for (int i = 0; i < gp.Vertices; i++)
         visited[i] = false;
-    dfsTraversal(0, gp, visited);
+    dfsTraversal(root, gp, visited);
 }
 
 int main(int argc, char const *argv[])
@@ -161,11 +160,15 @@ int main(int argc, char const *argv[])
             break;
 
         case 3:
-            BFS(gp);
+            printf("Enter the start vertice: ");
+            scanf("%d", &i);
+            BFS(gp, i);
             break;
 
         case 4:
-            DFS(gp);
+            printf("Enter the start vertice: ");
+            scanf("%d", &i);
+            DFS(gp, i);
             printf("\n");
             break;
         }
