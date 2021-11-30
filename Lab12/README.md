@@ -8,6 +8,10 @@
 * WAP to create a directed graph using adjacency list method.✅
 
 # O/P
+![](Lab12/01.png)
+![](Lab12/02.png)
+![](Lab12/03.png)
+![](Lab12/04.png)
 
 # questions{HW}
 * WAP to check whether an undirected graph is connected or not using DFS.✅
@@ -15,7 +19,8 @@
 * Write a menu driven program to create an un-directed graph using Adjacency List Method and perform graph traversal operations.✅
 * Write a menu driven program to create a directed graph using Adjacency List Method and perform graph traversal operations.✅
 * WAP to check whether a directed graph is connected or not using DFS.✅
-* WAP to check if a directed graph is a tree or not using DFS.
+* WAP to check if a directed graph is a tree or not using DFS.✅
 ![](https://www.baeldung.com/wp-content/ql-cache/quicklatex.com-74b826377baa5c95db3802297b890d04_l3.svg)
+
 
 # O/P
