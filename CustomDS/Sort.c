@@ -43,6 +43,7 @@ void mergeIt(int *arr, int start, int mid, int end) {
     for (int l =0 ; l<(end - start); l++)
         arr[l + start] = temp[l];
     free(temp);
+}
 
 void mergeSort(int *arr, int s, int e) {
     if (e-s == 1)
@@ -87,6 +88,9 @@ void quickSort(int *arr, int S, int E) {
     quickSort(arr, S, Ei);
     quickSort(arr, Si, E);
 }
+
+
+void radixSort(int *arr, int size){}
 
 
 int main(int argc, char **argv) {
