@@ -78,7 +78,7 @@ SLL* getMid(SLL* head) {
     return mid;
 }
 
-SLL* sortList(SLL* head){
+SLL* mergeSort(SLL* head){
 
     SLL* a = NULL;
     SLL* b = NULL;
@@ -88,10 +88,101 @@ SLL* sortList(SLL* head){
 
     SLL *mid = getMid(head);
 
-    a = sortList(head);
-    b = sortList(mid);
+    a = mergeSort(head);
+    b = mergeSort(mid);
 
     return mergeIt(a, b);
+}
+
+
+
+// here we are taking the pivot as the last node
+SLL* lastNode(SLL* node){
+    if(!node)
+        return NULL;
+
+    while(node->next){
+        node = node->next;
+    }
+
+    return node;
+}
+
+SLL* partition(SLL* head, SLL* end, SLL** newHead, SLL** newEnd)
+{
+    SLL* pivot = end;
+    SLL *prev = NULL, *cur = head, *tail = pivot;
+ 
+    // During partition, both the head and end of the list might change which is updated in the newHead and newEnd variables
+    while (cur != pivot) {
+        if (cur->data < pivot->data) {
+            // First node that has a value less than the pivot - becomes the new head
+            if ((*newHead) == NULL)
+                (*newHead) = cur;
+ 
+            prev = cur;
+            cur = cur->next;
+        }
+        else
+        {
+            // Move cur node to next of tail, and change tail
+            if (prev)
+                prev->next = cur->next;
+            SLL* tmp = cur->next;
+            cur->next = NULL;
+            tail->next = cur;
+            tail = cur;
+            cur = tmp;
+        }
+    }
+ 
+    // If the pivot data is the smallest element in the current list, pivot becomes the head
+    if ((*newHead) == NULL)
+        (*newHead) = pivot;
+ 
+    // Update newEnd to the current last node
+    (*newEnd) = tail;
+ 
+    return pivot;
+}
+ 
+
+SLL* quick(SLL* head, SLL* end)
+{
+    // base condition
+    if (!head || head == end)
+        return head;
+ 
+    SLL *newHead = NULL, *newEnd = NULL;
+ 
+    // Partition the list, newHead and newEnd will be updated by the partition function
+    SLL* pivot = partition(head, end, &newHead, &newEnd);
+ 
+    // If pivot is the smallest element - no need to recur for the left part.
+    if (newHead != pivot) {
+        // Set the node before the pivot node as NULL
+        SLL* tmp = newHead;
+        while (tmp->next != pivot)
+            tmp = tmp->next;
+        tmp->next = NULL;
+ 
+        // Recur for the list before pivot
+        newHead = quick(newHead, tmp);
+ 
+        // Change next of last node of the left half to
+        // pivot
+        tmp = lastNode(newHead);
+        tmp->next = pivot;
+    }
+ 
+    // Recur for the list after the pivot element
+    pivot->next = quick(pivot->next, newEnd);
+ 
+    return newHead;
+}
+
+SLL* quickSort(SLL* head){
+    return quick(head, lastNode(head));
 }
 
 
@@ -99,7 +190,7 @@ int main(int argc, char **argv) {
     SLL* head = NULL;
     int ch;
     do{
-        printf("[ 1 ] insert\n[ 2 ] display\n[ 3 ] sortit\n[ 0 ] EXIT\n> ");
+        printf("[ 1 ] insert\n[ 2 ] display\n[ 3 ] sortit{Merge sort}\n[ 4 ] sortit{QuickSort}\n[ 0 ] EXIT\n> ");
         scanf("%d",&ch);
         int k;
         switch(ch){
@@ -114,7 +205,11 @@ int main(int argc, char **argv) {
                 break;
             }
             case 3:{
-                head = sortList(head);
+                head = mergeSort(head);
+                break;
+            }
+            case 4:{
+                head = quickSort(head);
                 break;
             }
         }
