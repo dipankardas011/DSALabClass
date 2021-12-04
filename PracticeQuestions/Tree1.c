@@ -49,7 +49,7 @@ void postorderRec(tree *root)
 }
 
 /**
- * @def Push directly root node two times while traversing to the left. While poping if you find stack top() is same as root then go for root->right else print root.
+ * @def postorderIter Push directly root node two times while traversing to the left. While poping if you find stack top() is same as root then go for root->right else print root.
  * @param root root of the tree
  */
 void postorderIter(tree *root)
@@ -119,6 +119,26 @@ void preorderIter(tree *root)
     printf("\n\n");
 }
 
+
+void pathPrinter(tree *root, int* path, int index)
+{
+    if (root){
+        // printf("%d -> ", root->data);
+        path[index] = root->data;
+        index++;
+        if (root->left == NULL && root->right == NULL){
+            for (int i = 0; i < index;i++){
+                printf("%d -> ", path[i]);
+            }
+            printf("X\n");
+        }
+        else{
+            pathPrinter(root->left, path, index);
+            pathPrinter(root->right, path, index);
+        }
+    }
+}
+
 int main(int argc, char **argv)
 {
     tree *root = 0;
@@ -154,6 +174,9 @@ int main(int argc, char **argv)
     printf("\n");
     postorderIter(root);
 
+    int path[1000]={0};
+
+    pathPrinter(root,path,0);
 
     remove(argv[0]);
     return EXIT_SUCCESS;
