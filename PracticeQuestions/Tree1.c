@@ -70,6 +70,8 @@ void postorderIter(tree *root)
         root = (tree *)peek(&stk);
         pop(&stk);
 
+        // when there is duplicate of root.data means that right must be traversed
+        // if right has been traversed then the same / duplicat is removed before check 
         if(!isEmpty(&stk) && (tree *)peek(&stk) == root) 
             root = root->right;
 
@@ -139,18 +141,33 @@ void pathPrinter(tree *root, int* path, int index)
     }
 }
 
+tree* swapTreeNodes(tree* root){
+    if(root){
+        tree* t = root->left;
+        root->left = root->right;
+        root->right = t;
+        root->left = swapTreeNodes(root->left);
+        root->right = swapTreeNodes(root->right);
+        return root;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
 int main(int argc, char **argv)
 {
     tree *root = 0;
     /**
-   *    1
-   *   / \
-   *  2   3
-   * / \  /
-   * 4 5  6
-   *   \
-   *   7
-   */
+     *    1
+     *   / \
+     *  2   3
+     * / \  /
+     * 4 5  6
+     *   \
+     *   7
+     */
     root = allocateMemory(1);
     root->left = allocateMemory(2);
     root->right = allocateMemory(3);
@@ -177,6 +194,20 @@ int main(int argc, char **argv)
     int path[1000]={0};
 
     pathPrinter(root,path,0);
+
+    root = swapTreeNodes(root);
+    /**
+     *    1
+     *   / \
+     *  3   2
+     *  \  / \
+     *  6  5 4
+     *    /
+     *   7
+     */
+
+    inorderRec(root);
+    printf("\n");
 
     remove(argv[0]);
     return EXIT_SUCCESS;
