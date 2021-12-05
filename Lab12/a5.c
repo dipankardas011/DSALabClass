@@ -37,6 +37,7 @@ bool isCyclic(Graph gp, int s, bool *visited)
             }
         }
     }
+    free(parent);
     return false;
 }
 // as tree are scyclic and graph contains loops so find for loops
