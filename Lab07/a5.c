@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MOD 20
 #define EMP -999
 typedef struct type{
     int* arr;
@@ -13,13 +12,18 @@ typedef struct type{
 }HashMap;
 
 void doubleHashing(){
+    const int MOD = 20;
     HashMap *hp = NULL;
     int ch;
+    hp = (HashMap *)malloc(sizeof(HashMap));
+    hp->size = MOD;
+    hp->arr = (int *)malloc(sizeof(int) * hp->size);
+    for (int i = 0; i < MOD; i++)
+        hp->arr[i] = EMP;
     do{
         printf("Enter choices\n");
         printf("[ 1 ] insert\n");
         printf("[ 2 ] display\n");
-        printf("[ 3 ] search\n> ");
         scanf("%d", &ch);
         
         switch(ch){
@@ -27,9 +31,6 @@ void doubleHashing(){
                 break;
             }
             case 2:{
-                break;
-            }
-            case 3:{
                 break;
             }
         }
@@ -41,23 +42,55 @@ void doubleHashing(){
 
 
 void quadraticProbing(){
+    const int MOD = 7;
     HashMap *hp = NULL;
     int ch;
+    hp = (HashMap *)malloc(sizeof(HashMap));
+    hp->size = MOD;
+    hp->arr = (int *)malloc(sizeof(int) * hp->size);
+    for (int i = 0; i < MOD; i++)
+        hp->arr[i] = EMP;
     do{
         printf("Enter choices\n");
         printf("[ 1 ] insert\n");
         printf("[ 2 ] display\n");
-        printf("[ 3 ] search\n> ");
+        printf("[ 0 ] EXIT\n> ");
         scanf("%d", &ch);
-        
+        int key;
         switch(ch){
             case 1:{
+                {
+                    printf("Enter the value to insert: ");
+                    scanf("%d", &key);
+                    int orgHash = key % MOD;
+                    int hashVal = key % MOD;
+                    // perfect squares
+                    int increment = 1;
+
+                    do{
+                        printf("hash: %d\n", hashVal);
+                        if (hp->arr[hashVal] == EMP)
+                            break;
+                        hashVal = (orgHash+(increment))%MOD; // if not found empty place we move to the next
+                        increment += 3;
+                        printf("hash: %d\n", hashVal);
+                    } while (orgHash != hashVal && hp->arr[hashVal] != EMP);
+
+                    if (orgHash == hashVal && hp->arr[key % MOD] != EMP) {
+                        printf("No Empty place LEFT😐\n");
+                        break;
+                    }
+                    hp->arr[hashVal] = key;
+                }
                 break;
             }
             case 2:{
-                break;
-            }
-            case 3:{
+                {
+                    // display
+                    printf("[KEY] : [VALUE]\n");
+                    for (int i = 0; i < hp->size; i++)
+                        printf("[%3d] : %d\n", i, hp->arr[i]);
+                }
                 break;
             }
         }
@@ -68,6 +101,7 @@ void quadraticProbing(){
 
 
 void linearSearch(){
+    const int MOD = 20;
     HashMap *hp = NULL;
     int ch;
     hp = (HashMap *)malloc(sizeof(HashMap));
@@ -80,7 +114,7 @@ void linearSearch(){
         printf("Enter choices\n");
         printf("[ 1 ] insert\n");
         printf("[ 2 ] display\n");
-        printf("[ 0 ] EXIT\n");
+        printf("[ 0 ] EXIT\n> ");
         scanf("%d", &ch);
         int key;
         switch(ch){
