@@ -23,6 +23,14 @@
         "string": "c",
         "stdbool.h": "c",
         "queuei.h": "c",
-        "graph.h": "c"
+        "graph.h": "c",
+        "optional": "c",
+        "ostream": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "variant": "c"
     }
 }

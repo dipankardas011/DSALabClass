@@ -11,7 +11,24 @@ typedef struct type{
     int size;
 }HashMap;
 
+
+int hash1(int key){
+    const int MOD = 20;
+    return key % MOD;
+}
+
+int hash2(int key){
+    const int MOD = 6;
+    return key % MOD + 1;
+}
+
 void doubleHashing(){
+    /*
+     * Check location hash1(key). If it is empty, put recordinit.
+     * If it is not empty calculatehash2(key).
+     * check if hash1(key)+hash2(key) is open,if it is, putitin
+     * repeat with hash1(key)+2hash2(key),hash1(key)+3hash2(key)andsoon,untilanopeningisfound.
+    */
     const int MOD = 20;
     HashMap *hp = NULL;
     int ch;
@@ -24,13 +41,34 @@ void doubleHashing(){
         printf("Enter choices\n");
         printf("[ 1 ] insert\n");
         printf("[ 2 ] display\n");
+        printf("[ 0 ] EXIT\n> ");
         scanf("%d", &ch);
-        
+        int key;
         switch(ch){
             case 1:{
+                {
+                    printf("Enter the value to insert: ");
+                    scanf("%d", &key);
+
+                    int hashKey = hash1(key);
+                    int increment = 1;
+                    while (hp->arr[hashKey] != EMP) {
+                        hashKey = hash1(key) + increment*hash2(key);
+                        increment++;
+                        hashKey %= hp->size;
+                    }
+
+                    hp->arr[hashKey] = key;
+                }
                 break;
             }
             case 2:{
+                {
+                    // display
+                    printf("[KEY] : [VALUE]\n");
+                    for (int i = 0; i < hp->size; i++)
+                        printf("[%3d] : %d\n", i, hp->arr[i]);
+                }
                 break;
             }
         }

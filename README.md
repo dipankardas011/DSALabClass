@@ -16,4 +16,19 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
+## to run the container
+```bash
+docker build buildenv -t "name-of-image"
+```
+to run the contaniner
+```ps
+docker run --rm -it -v "${pwd}:/root/env" "name-of-image" 
+```
+## Cleanup
+
+Remove the build-evironment image:
+```ps
+docker rmi "name-of-image" -f
+```
+
 `Author: Dipankar Das`
