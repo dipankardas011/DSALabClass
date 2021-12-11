@@ -1,6 +1,6 @@
 # Lab07
 
-`Updated 9/12/21`
+`Updated 11/12/21`
 
 # LA
 
@@ -19,7 +19,5 @@
 1. Given a sorted array of length n, WAP to find the number in array that appears more than or equal to n/2 times. It can be assumed that such element always exists. 
     Input:  2 3 3 4 Output: 3 
     Input:  3 4 5 5 5 Output: 5✅
-1. WAP illustrating the usage of “Hash Functions” namely Folding, Mid-square, Division, Subtraction, Digit extraction and Rotation Hashing methods.
+1. WAP illustrating the usage of “Hash Functions” namely Folding, Mid-square, Division, Subtraction, Digit extraction and Rotation Hashing methods.✅
 
-
-## O/P
