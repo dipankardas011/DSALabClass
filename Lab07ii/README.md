@@ -13,9 +13,9 @@
 1. WAP to sort an array of n doubles in a descending order using quick sort.✅
 
 ### HAs
-1. WAP sort the n names in an alphabetical order.
-1. WAP demonstrating bubble sort using linked list.
-1. WAP to find the maximum difference between any two elements.
+1. WAP sort the n names in an alphabetical order.✅
+1. WAP demonstrating bubble sort using linked list.✅
+1. WAP to find the maximum difference between any two elements.✅
 1. WAP to sort an array of n integers in an ascending order using radix sort.
 1. WAP to sort an array of n integers in an ascending order using Heap sort.
 1. WAP to input two arrays X and Y of positive integers, find number of pairs such that x^y > y^x where x is an element from X and y is an element from Y.
