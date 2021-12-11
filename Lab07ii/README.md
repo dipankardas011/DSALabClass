@@ -6,7 +6,7 @@
 
 ## questions
 ### LAs
-1. WAP to sort an array of n dates in an ascending order using Bubble sort. Date structure is {day, month, year }
+1. WAP to sort an array of n dates in an ascending order using Bubble sort. Date structure is {day, month, year }✅
 1. WAP to sort an array of n floats in an ascending order using selection sort.
 1. WAP to sort an array of n integers in a descending order using insertion sort.
 1. WAP to sort an array of n integers in an ascending order using merge sort.
