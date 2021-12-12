@@ -10,25 +10,10 @@ all the DSA Lab class codes
 
 all Data Structures topics in C language
 ```
-gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
-Copyright (C) 2019 Free Software Foundation, Inc.
+gcc (Debian 10.2.1-6) 10.2.1 20210110
+Copyright (C) 2020 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-```
-
-## to run the container
-```bash
-docker build buildenv -t "name-of-image"
-```
-to run the contaniner
-```ps
-docker run --rm -it -v "${pwd}:/root/env" "name-of-image" 
-```
-## Cleanup
-
-Remove the build-evironment image:
-```ps
-docker rmi "name-of-image" -f
 ```
 
 `Author: Dipankar Das`
