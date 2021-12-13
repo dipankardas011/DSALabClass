@@ -39,6 +39,7 @@ struct Node* removeDuplicates(struct Node* head){
         if(curr->data == curr->next->data){
             struct Node* t=curr->next;
             curr->next = curr->next->next;
+            curr->next->prev = curr;
             free(t);
         }
 
