@@ -229,6 +229,21 @@ tree *deletion(tree *root, int dkey)
     return root;
 }
 
+
+void deleteTree(tree *root)
+{
+    if(root){
+        int i=0;
+        while(i<=root->availableKeys){
+            deleteTree(root->childrens[i]);
+            i++;
+        }
+
+        free(root);
+    }
+}
+
+
 int main(int argc, char const *argv[])
 {
     tree *root = NULL;
@@ -268,5 +283,8 @@ int main(int argc, char const *argv[])
             break;
         }
     } while (ch);
+
+
+    deleteTree(root);
     return 0;
 }

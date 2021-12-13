@@ -43,6 +43,14 @@ namespace Q1{
         return t;
     }
 
+    void deleteTree(tree* root){
+        if(root){
+            deleteTree(root->left);
+            deleteTree(root->right);
+            free(root);
+        }
+    }
+
     void exec(){
         tree* T1 = nullptr;
         T1 = createNode(1);
@@ -64,6 +72,9 @@ namespace Q1{
         T2 = copyTree(T1, T2);
         inorderTraversal(T2);
         printf("]\n");
+
+        deleteTree(T1);
+        deleteTree(T2);
     }
 }
 

@@ -156,6 +156,14 @@ tree* swapTreeNodes(tree* root){
     }
 }
 
+void deleteTree(tree* root){
+    if(root){
+        deleteTree(root->left);
+        deleteTree(root->right);
+        free(root);
+    }
+}
+
 int main(int argc, char **argv)
 {
     tree *root = 0;
@@ -209,6 +217,8 @@ int main(int argc, char **argv)
     inorderRec(root);
     printf("\n");
 
+
+    deleteTree(root);
     remove(argv[0]);
     return EXIT_SUCCESS;
 }

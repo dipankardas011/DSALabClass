@@ -224,6 +224,15 @@ avl* deleteKey(avl* root, int dkey){
     return root;
 }
 
+
+void deleteTree(avl* root){
+    if(root){
+        deleteTree(root->left);
+        deleteTree(root->right);
+        free(root);
+    }
+}
+
 int main(int argc, char **argv){
     avl* root = NULL;
 
@@ -254,6 +263,7 @@ int main(int argc, char **argv){
         }
     }while(ch);
 
+    deleteTree(root);
 
     remove(argv[0]);
     return EXIT_SUCCESS;
