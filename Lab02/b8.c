@@ -6,7 +6,7 @@
 
 bool isPalindrome(struct Node** head, struct Node* last){
     if(last){
-        isPalindrome(head,last->next);
+        return isPalindrome(head,last->next);
 
         // ll in reverse order
         // printf("compare: %d ?= %d\n",(*head)->data,last->data);
