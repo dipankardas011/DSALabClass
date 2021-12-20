@@ -2,85 +2,80 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct n{
+typedef struct node{
     int data;
-    struct n *next;
-} queue;
+    struct node *next;
+} Stack;
 
-queue *front = NULL;
-
-queue *rear = NULL;
-
-void insert(int* stk1, int *top)
-{
-
-    int *stk2 = (int *)malloc(sizeof(int)*100);
-    int top2 = -1;
-
-        
-        while(*top!=-1){
-            stk2[++top2] = stk1[*top];
-            (*top)--;
-        }
-
-        queue *temp = (queue *)malloc(sizeof(queue));
-        temp->data = stk2[top2];
-        temp->next = NULL;
-        if(!front){
-            front = rear = temp;
-        } else {
-            rear->next = temp;
-            rear = rear->next;
-        }
-
-        top2--;
-
-        while(top2!=-1){
-            printf("ss %d\n", stk2[top2]);
-            stk1[++(*top)] = stk2[top2];
-            top2--;
-        }
-
-    free(stk2);
+int isEmpty(Stack* stk){
+    return stk==NULL ? 1 : 0;
 }
 
-void pop(){
-    queue *ff = 0;
-    int x = 0;
-    if (front == rear)
-    {
-        ff = front;
-        x = ff->data;
-        front = rear = NULL;
-        free(ff);
+void push(Stack** stk, int d){
+    Stack *temp = (Stack *)malloc(sizeof(Stack));
+    temp->data=d;
+    temp->next = NULL;
+    if (isEmpty(*stk)) {
+        *stk = temp;
     } else {
-        x = front->data;
-        ff = front;
-        front = front->next;
-        free(ff);
+        temp->next = *stk;
+        *stk = temp;
     }
-    printf("popped: %d\n", x);
 }
 
-void display(){
-    if(front){
-        queue *iter = front;
-        printf("| ");
-        do
-        {
-            printf("%d", iter->data);
-            iter = iter->next;
-        } while (iter && printf(" | "));
-        printf(" |\n\n");
-    } else {
-        printf("Empty\n");
+void pop(Stack** stk){
+    if(isEmpty(*stk)){
+        return;
+    }
+    Stack *ff = NULL;
+    ff = *stk;
+    *stk = (*stk)->next;
+    free(ff);
+}
+
+void displayS(Stack* top){
+    while(top!=NULL){
+        printf("| %d |\n", top->data);
+        top = top->next;
+    }
+    printf("\n");
+}
+
+int peek(Stack* s){
+    return isEmpty(s) ? -111 : s->data;
+}
+
+void enQueue(Stack** stk, int idata){
+    Stack *tstk = NULL;
+    while(!isEmpty(*stk)){
+        push(&tstk, peek(*stk));
+        pop(stk);
+    }
+
+    push(&tstk, idata);
+
+    while(!isEmpty(tstk)){
+        push(stk, peek(tstk));
+        pop(&tstk);
+    }
+}
+
+void deQueue(Stack** stk){
+    int f = (*stk)->data;
+    pop(stk);
+    printf("Popped: %d\n", f);
+}
+
+void display(Stack* stk){
+    if(!isEmpty(stk)){
+        printf("%d ", stk->data);
+        display(stk->next);
     }
 }
 
 int main(int argc, char **argv)
 {
-    int *stk1 = (int *)malloc(sizeof(int *)*100);
-    int top = -1;
+    Stack *stk = NULL;
     int ch;
 
     do{
@@ -91,23 +86,22 @@ int main(int argc, char **argv)
                 int k;
                 printf("Enter the element to insert: ");
                 scanf("%d", &k);
-                stk1[++top] = k;
-                insert(stk1, &top);
+                enQueue(&stk, k);
                 break;
             }
             case 2:{
-                top--;
-                pop();
+                deQueue(&stk);
                 break;
             }
             case 3:{
-                display();
+                printf("| ");
+                display(stk);
+                printf("|\n");
                 break;
             }
         }
     } while (ch);
 
-    free(stk1);
     remove(argv[0]);
     return EXIT_SUCCESS;
 }

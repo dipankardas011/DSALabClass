@@ -31,6 +31,8 @@
         "tuple": "c",
         "type_traits": "c",
         "utility": "c",
-        "variant": "c"
+        "variant": "c",
+        "ranges": "c",
+        "span": "c"
     }
 }
