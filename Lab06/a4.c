@@ -11,14 +11,14 @@ int isEmpty(){
 }
 
 int isFull(){
-    return (front == rear)?1:0;
+    return ((rear + 1) % SIZE == front) ? 1 : 0;
 }
 
 void push(int d){
     if(isEmpty()){
         front = rear = 0;
     }
-    else if((rear+1)%SIZE != front){
+    else if(!isFull()){
         rear = (rear+1)%SIZE;
     }
     else{
@@ -30,17 +30,14 @@ void push(int d){
 
 int pop(){
     int x = -999;
-    if(isFull() && !isEmpty()){
-        //reset the
-        x = cqueue[front];
-        front = rear = -1; 
-    }else if(isEmpty()){
+    if(isEmpty())
         return x;
-    }
-    else{
-        x = cqueue[front];
-        front = (front+1)%SIZE;
-    }
+
+    x = cqueue[front];
+    if(front==rear)
+        rear = front = -1;
+    else
+        front = (front + 1) % SIZE;
     return x;
 }
 

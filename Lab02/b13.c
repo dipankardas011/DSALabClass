@@ -6,20 +6,18 @@
 struct Node* rotateKthCC(struct Node* head, int k){
     int count=0;
     struct Node* start = head;
-    while(count++ < k){
-        start=start->next;
+    struct Node *prevStart = NULL;
+    while (count++ < k) {
+        prevStart = start;
+        start = start->next;
     }
-    // printf("%d\n",start->data);
-    struct Node* t1=start;
+    prevStart->next = NULL;
+    struct Node *t1 = start;
     while(t1->next){
         t1=t1->next;
     }
     t1->next = head;
     head = start;
-    while(t1->next->data != start->data){
-        t1=t1->next;
-    }
-    t1->next = NULL;
 
     return head;
 }

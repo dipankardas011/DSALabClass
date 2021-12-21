@@ -84,15 +84,15 @@ SLL* getMid(SLL* start, SLL* last)
 {
     if (start == NULL)
         return NULL;
- 
-    SLL* slow = start;
-    SLL* fast = start -> next;
- 
+
+    SLL *slow = start;
+    SLL *fast = start->next;
+
     while (fast != last) {
-        fast = fast -> next;
+        fast = fast->next;
         if (fast != last) {
-            slow = slow -> next;
-            fast = fast -> next;
+            slow = slow->next;
+            fast = fast->next;
         }
     }
  
@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
     SLL *head = NULL;
     int ch;
     do{
-        printf("[ 1 ] insertKey\n[ 2 ] display\n[ 3 ] findKey\n> ");
+        printf("[ 1 ] insertKey\n[ 2 ] display\n[ 3 ] findKey\n[ 0 ] EXIT\n> ");
         scanf("%d", &ch);
         int key;
         switch(ch){

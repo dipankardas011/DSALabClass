@@ -40,7 +40,7 @@ int countNodes(struct Node* head){
     return count;
 }
 
-struct Node* head1;
+struct Node* head1=NULL;
 
 void develop(struct Node* head, struct Node** tail, int c)
 {

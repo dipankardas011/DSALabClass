@@ -143,23 +143,25 @@ DLL* mergeIt(DLL* a, DLL* b) {
         // insert a
         temp = a;
         temp->next = mergeIt(a->next, b);
-        if (temp) {
-            temp->next->prev = temp;
-        }
-        else {
-            temp->next->prev = NULL;
-        }
+        // if (temp) {
+        //     temp->next->prev = temp;
+        // }
+        // else {
+        //     temp->next->prev = NULL;
+        // }
+        temp->next->prev = temp == NULL ? NULL : temp;
     }
     else {
         // insert b
         temp = b;
         temp->next = mergeIt(a, b->next);
-        if (temp) {
-            temp->next->prev = temp;
-        }
-        else {
-            temp->next->prev = NULL;
-        }
+        // if (temp) {
+        //     temp->next->prev = temp;
+        // }
+        // else {
+        //     temp->next->prev = NULL;
+        // }
+        temp->next->prev = temp == NULL ? NULL : temp;
     }
 
     return temp;

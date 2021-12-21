@@ -20,9 +20,7 @@ void insert(struct Node **head)
         (*head)->next = (*head)->prev = (*head);
         return;
     }
-    struct Node* t= *head;
-    while(t->next !=*head)
-        t=t->next;
+    struct Node *t = (*head)->prev;
 
     t->next = temp;
     temp->prev = t;

@@ -8,7 +8,7 @@ struct Node* reverseEvenPosition(struct Node* head){
     int i=1;
     struct Node* t=head;
     while(t){
-        if(i%2==0)
+        if(i%2==0)  // we could instead push it to the front so then no need for reverse
             evenHead = insertAtBack(evenHead, t->data);
         i++;
         t=t->next;
@@ -21,7 +21,10 @@ struct Node* reverseEvenPosition(struct Node* head){
         if(i%2==0)
         {
             t->data = evenHead->data;
+            // deallocate
+            struct node *ff = evenHead;
             evenHead = evenHead->next;
+            free(ff);
         }
         i++;
         t=t->next;

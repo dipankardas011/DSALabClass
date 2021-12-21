@@ -110,6 +110,7 @@ int main(int argc, char **argv) {
     makeConnection(&gp, 0, 1);
     makeConnection(&gp, 1, 3);
     makeConnection(&gp, 2, 3);
+    makeConnection(&gp, 2, 4);
 
     displayGraph(gp);
     (isConnected(gp, 0)) ? printf("Is Connected\n") : printf("Disconnection are there\n");

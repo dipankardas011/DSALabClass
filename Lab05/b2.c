@@ -146,13 +146,11 @@ int main(int argc, char const *argv[])
             // till then push the element back to the stk1
             push(&s1, pop(&s2));
         }
-        if (t > peek(s2) && !isEmpty(s2))
-        {
-            push(&s2, t);
-        }
-        else{
-            push(&s2,t);
-        }
+        // if (t > peek(s2) && !isEmpty(s2))
+        //     push(&s2, t);
+        // else
+        //     push(&s2,t);
+        push(&s2, t);
     }
 
     display(s2);
